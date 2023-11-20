@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CategoryViewModel @Inject constructor(private val repository: TweetRepository): ViewModel () {
+class CategoryViewModel @Inject constructor(private val repository: TweetRepository): ViewModel() {
 
     val categories :StateFlow<List<String>>
         get() = repository.categories

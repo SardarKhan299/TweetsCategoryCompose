@@ -12,7 +12,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.tweetscategorycompose.api.TweetsApi
+import com.example.tweetscategorycompose.screens.CategoryScreen
+import com.example.tweetscategorycompose.screens.DetailScreen
 import com.example.tweetscategorycompose.ui.theme.TweetsCategoryComposeTheme
 import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,29 +37,28 @@ class MainActivity : ComponentActivity() {
         setContent {
             TweetsCategoryComposeTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
+                TweetsApp()
             }
         }
     }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    TweetsCategoryComposeTheme {
-        Greeting("Android")
+    @Composable
+    fun TweetsApp() {
+        val navController = rememberNavController()
+        NavHost(navController = navController, startDestination = "category" ){
+            composable(route = "category"){
+                CategoryScreen{category->
+                    navController.navigate("detail/$category")
+                }
+            }
+            composable(route = "detail/{category}", arguments = listOf(navArgument("category"){
+                type = NavType.StringType
+            })){
+                DetailScreen()
+            }
+            composable(route = "main"){
+                TweetsApp()
+            }
+        }
     }
 }
