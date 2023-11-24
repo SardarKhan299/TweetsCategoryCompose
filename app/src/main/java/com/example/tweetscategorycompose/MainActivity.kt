@@ -5,7 +5,10 @@ import android.provider.Settings.Global
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -15,9 +18,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -72,6 +77,19 @@ class MainActivity : ComponentActivity() {
             composable(route = "main"){
                 TweetsApp()
             }
+        }
+    }
+
+
+    @Preview(widthDp = 300, heightDp = 300)
+    @Composable
+    fun TestComposable() {
+        Column(horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceAround,
+            modifier = Modifier.background(Color.Green).fillMaxSize(1f)) {
+            Text(text = "Hello")
+            Text(text = "Sardar")
+            Text(text = "Khan")
         }
     }
 }
